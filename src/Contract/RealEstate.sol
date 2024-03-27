@@ -54,6 +54,7 @@ contract RealEstate {
     }
 
     function buyApartment(uint256 _buildingId, uint256 _apartmentCount) public payable {
+        require(_apartmentCount > 0, "Enter number of apartments");
         require(buildings[_buildingId].apartmentsOwned + _apartmentCount <= buildings[_buildingId].apartmentsCount, "not enough apartments");
         require(msg.value >= buildings[_buildingId].apartmentPrice * _apartmentCount, "insufficient funds");
         require(buildings[_buildingId].lister != msg.sender, "cannot buy own building apartments");

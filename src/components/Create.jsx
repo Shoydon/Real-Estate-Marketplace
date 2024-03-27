@@ -29,6 +29,18 @@ function Create({marketplace, address}) {
   
     const handleEvent = async (e) => {
       e.preventDefault();
+      if(forminfo.apartments < 1) {
+        toast.info("Building must have atleast 1 apartment", {
+          position: "top-center"
+        })
+        return
+      }
+      if(forminfo.price < 1) {
+        toast.info("Enter a valid price for the apartments", {
+          position: "top-center"
+        })
+        return
+      }
       console.log(nftimage);
       console.log(forminfo);
 
@@ -108,14 +120,19 @@ function Create({marketplace, address}) {
     })
 
   // const listingPrice = ethers.utils.parseEther(forminfo.price.toString())
-  const tx1=  await(await marketplace.listBuilding(forminfo.apartments, forminfo.price, uri))
-
-  toast.info("Wait till transaction Confirms....", {
-    position: "top-center"
-  })
-
-  await tx1.wait()
-  toast.success("NFT added to marketplace successfully", {position:"top-center"})
+  try {
+    const tx1=  await(await marketplace.listBuilding(forminfo.apartments, forminfo.price, uri))
+  
+    toast.info("Wait till transaction Confirms....", {
+      position: "top-center"
+    })
+  
+    await tx1.wait()
+    toast.success("NFT added to marketplace successfully", {position:"top-center"})
+  } catch (error) {
+    toast.error("Error adding NFT to Marketplace")
+    console.log(error);
+  }
 
   }
 
@@ -134,13 +151,13 @@ function Create({marketplace, address}) {
 
   
   <div class="mb-4">
-    <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SBT Name</label>
+    <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Building Name</label>
     <input onChange={handleChange} type="text" id="title" name='title' class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="Enter Building name" required />
   </div>
 
   <div class="mb-4">
     <label for="apartments" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Number of Apartments <span className='text-sx'></span></label>
-    <input onChange={handleChange} type="text" id="apartments" name='apartments' class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="10" />
+    <input onChange={handleChange} type="number" min={1} id="apartments" name='apartments' class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="10" />
   </div>
 
   <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>

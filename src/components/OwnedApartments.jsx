@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from 'react'
 
-function OwnedApartments({marketplace}) {
+function OwnedApartments({ marketplace, setMarketplace }) {
 
   const [loading, setLoading] = useState(true)
   const [buildings, setBuildings] = useState([])
+
+  window.onbeforeunload = function() {
+    // Your custom function to run when the page is reloaded
+    console.log("Page is being reloaded!");
+    window.location.href = "/";
+    // Add any other actions you want to perform here
+  };
 
   const getMyApartments = async() => {
     console.log("loading my apartments");

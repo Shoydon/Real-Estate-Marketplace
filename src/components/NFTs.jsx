@@ -2,13 +2,19 @@ import React, { useEffect, useState } from 'react'
 import Cards from './Cards'
 import { toast } from 'react-toastify';
 import { ethers } from 'ethers';
+import contractData from '../contract.json'
 
-function NFTs({ marketplace, setNFTitem }) {
+function NFTs({ marketplace, setNFTitem, setMarketplace }) {
   useEffect(() => {
     document.title = "NFT Museum ETH"
   }, []);
 
-  
+  window.onbeforeunload = function() {
+    // Your custom function to run when the page is reloaded
+    console.log("Page is being reloaded!");
+    window.location.href = "/";
+    // Add any other actions you want to perform here
+  };
 
   const [loading, setLoading] = useState(true)
   const [items, setItems] = useState([])
@@ -56,6 +62,12 @@ function NFTs({ marketplace, setNFTitem }) {
 
   const buyMarketItem = async (item, apartmentCount) => {
     // const tx = await (await marketplace.viewitem(item.itemId, { value: 0 }))
+    if(apartmentCount < 1){
+      toast.info("Enter number of apartments to buy", {
+        position: "top-center"
+      })
+      return
+    }
     console.log("buying apartment");
     console.log(item, apartmentCount);
     console.log("price to pay: ", item.price * apartmentCount);

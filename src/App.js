@@ -31,8 +31,16 @@ function App() {
         });
 
         window.ethereum.on("accountsChanged", () => {
-          window.location.reload();
+          window.location.href = "/"; // Redirect using window.location
+          console.log(window.location);
         });
+
+        window.onbeforeunload = function() {
+          // Your custom function to run when the page is reloaded
+          console.log("Page is being reloaded!");
+          window.location.href = "/";
+          // Add any other actions you want to perform here
+        };
         
         await provider.send("eth_requestAccounts", []);
         const signer = provider.getSigner();
@@ -77,7 +85,7 @@ function App() {
         <Route path="/" element={<Home/>}></Route>
         {/* <Route path="/all-nft" element={<NFTs marketplace={contract} setNFTitem={setNFTitem} />}></Route>
         <Route path="/create" element={<Create marketplace={contract}  address={account}/>}></Route> */}
-        <Route path="/all-nft" element={<NFTs marketplace={marketplace} setNFTitem={setNFTitem} />}></Route>
+        <Route path="/all-nft" element={<NFTs marketplace={marketplace} setNFTitem={setNFTitem} setMarketplace={setMarketplace} />}></Route>
         <Route path="/create" element={<Create marketplace={marketplace}  address={account}/>}></Route>
         <Route path="/info" element={<Info nftitem={nftitem} />}></Route>
         <Route path='/listed-buildings' element={<MyBuildings marketplace={marketplace} address={account}/>}></Route>
