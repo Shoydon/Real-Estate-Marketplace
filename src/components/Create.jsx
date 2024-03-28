@@ -115,7 +115,7 @@ function Create({marketplace, address}) {
 
 
   const mintThenList = async (uri) => { 
-    toast.info("Confirm to Mint the SBT", {
+    toast.info("Confirm to Mint the Building", {
       position: "top-center"
     })
 
@@ -128,7 +128,7 @@ function Create({marketplace, address}) {
     })
   
     await tx1.wait()
-    toast.success("NFT added to marketplace successfully", {position:"top-center"})
+    toast.success("Building added to marketplace successfully", {position:"top-center"})
   } catch (error) {
     toast.error("Error adding NFT to Marketplace")
     console.log(error);
@@ -173,7 +173,7 @@ function Create({marketplace, address}) {
                   Mint SBT
                 </button> */}
   <button onClick={handleEvent} className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" >
-                  Mint NFT
+                  Mint Building
                 </button>
                 </div>
 </form>  

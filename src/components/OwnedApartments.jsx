@@ -27,6 +27,7 @@ function OwnedApartments({ marketplace, setMarketplace }) {
       // console.log("building: ", Number(building.apartmentOwners));
       const res = await fetch(theBuilding.ipfsHash)
       const metadata = await res.json()
+      metadata.apartmentId = Number(apartment.apartmentId)
       console.log("metadata listed: ", metadata)
       displayItems.push(metadata)
     }
@@ -56,6 +57,7 @@ function OwnedApartments({ marketplace, setMarketplace }) {
                 <div className='flex flex-col justify-center items-center'>
                   <h3 className='text-white text-2xl font-thin mt-3'>{item.name}</h3>
                   <div className='text-white text-2xl font-thin mt-3'> {item.description}</div>
+                  <div className='text-white text-2xl font-thin mt-3'>Apartment No: {item.apartmentId + 1}</div>
                   <div className='text-white text-2xl font-thin mt-3'>Price per Apartment:</div>
                   <div className='text-white text-2xl font-thin'>{item.price} wei</div>
                 </div>

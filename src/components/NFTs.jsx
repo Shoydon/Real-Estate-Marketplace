@@ -79,6 +79,8 @@ function NFTs({ marketplace, setNFTitem, setMarketplace }) {
       });      // Send the transaction (assuming signer has sufficient funds)
       const receipt = await tx.wait();
 
+      await tx.wait();
+      toast.success("Transaction successful!", {position:"top-center"})
       console.log("Transaction successful:", receipt);
       return receipt.transactionHash; // O
     } catch (e) {
@@ -89,7 +91,6 @@ function NFTs({ marketplace, setNFTitem, setMarketplace }) {
       position: "top-center"
     })
 
-    // await tx.wait();
 
     setNFTitem(item)
     item.viewitem = true;
